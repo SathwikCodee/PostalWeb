@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=auto">
+    <title>Pincode Checker</title>
+    <style>
+        body {
+            font-family: cursive;
+            background:url('https://i0.wp.com/recommendmeanime.com/wp-content/uploads/2022/07/small-town-mystery-anime.png?resize=1536%2C864&ssl=1');
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+        }
+
+        #heading {
+            background-color: #3f6d20;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 5%;
+            padding-right: 10%;
+            
+        }
+
+        
+        .content{
+            margin-top:5%;
+   
+            border:2px solid rgba(255, 255, 255, 0.5);
+            width:30%;
+            height: 300px;
+            background: transparent;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            margin-left: 36%;
+            
+        }
+
+        h1 {
+            color: #b5b7b7;
+            padding-top: 20px;
+        }
+        h2 {
+            color: #b5b7b7;
+        }
+
+        .pincode {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 30%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            border: 0;
+            outline: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .submit {
+            background-color: #5ae34e;
+            color: #0a0707;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .submit:hover {
+            background-color: #050607;
+            color: aliceblue;
+            box-shadow: 2px 2px 2px greenyellow;
+        }
+        .picodeDetails{
+            margin-top:3%;
+            border:2px solid rgba(255, 255, 255, 0.5);
+            width:40%;
+            height: 500px;
+            background: transparent;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            padding-left: 3%;
+            text-align: left;
+            margin-left: 30%;
+            color: #c7c7c7;
+            font-size: 25px;
+            
+            
+        }
+   
+
+    </style>
+
+</head>
+
+<body>
+    <header id="heading">
+        <h1 >PINCODE DETAILS</h1>
+        <a href="#">&#127968;HOME</a>
+        <a href="">PROFILE</a>
+    </header>
+
+    
+    <div class="content">
+        <h2>What is your Pincode?</h2>
+        <div class="pincode">
+            <input  id="pins" type="text" name="pincode" placeholder="Enter your Pincode" required>
+        </div>
+        <div >
+            <button class="submit " id="add">SUBMIT</button>
+        </div>
+    </div>
+    <br>
+    <div class="picodeDetails " id="add">
+        <label id="ansHeading"></label>
+        <br>
+        <br>
+        <label id="pin"></label>
+        <br>
+        <br>
+        <label id="place"></label>
+        <br>
+        <br>
+        <label id="district"></label>
+        <br>
+        <br>
+        <label id="state"></label>
+        <br>
+        <br>
+        <label id="country"></label>
+    </div>
+
+    <script src="pincode1.js">
+ 
+    </script>
+    
+</body>
+</html>

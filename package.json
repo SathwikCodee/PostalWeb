@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "fetch": "^1.1.0",
+    "firebase-admin": "^11.10.1",
+    "node-telegram-bot-api": "^0.61.0",
+    "request": "^2.88.2",
+    "require": "^0.4.4"
+  }
+}
