@@ -79,9 +79,9 @@
     </head>
     <body>
         <div id="middle-first-part">
-            <form action="registration" id="form">
+            <form action="registration" id="form" method="post">
                 <div>
-                    <h1> SIGN UP </h1>
+                    <h1> SIGN UP </h1> 
                 </div>
                 <div>
                     <div>
@@ -92,23 +92,24 @@
                     
                     <div>
                         <label for="email" >Email   </label>
-                        <input name="email" type="email" id="email" placeholder="@gmail.com"  required style="margin-left: 138px;" onclick="validateEmail()" id="givenemail">
+                        <input name="email" type="email" id="email" placeholder="example@gmail.com"  required style="margin-left: 138px;" id="givenemail">
                     </div>
                     <br>
                     <div>
                         <label for="pass">Password  </label>
-                        <input name="password" type="password" id="pass" required  onclick="validatePassword()">
+                        <input name="password" type="password" id="pass" required  >
                     </div>
                     <br>
                     <div>
                         <a href="login.html" target="_self" id="login"> LOGIN </a>
                     </div>
                     <div id="submit">
-                        <button id="button" type="submit" onclick="onSubmit()">SIGNIN</button>
+                        <button id="button" type="submit" >SIGNIN</button>
                     </div>
                 </div>
             </form>   
         </div>
         <br>
+        
     </body>
 </html>
