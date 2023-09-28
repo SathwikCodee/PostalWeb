@@ -1,16 +1,20 @@
-var app = require('express')
-var express = require('express')  
-var app = express()
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 
-app.use(express.static("public"))
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./db.json");
+
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/reg", function (req, res){
     res.sendFile(__dirname + "/public/" + "reg.html")
 })
 
-var admin = require("firebase-admin");
 
-var serviceAccount = require("./db.json");
 
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore} = require('firebase-admin/firestore');
@@ -21,35 +25,70 @@ admin.initializeApp({
 
 const db = getFirestore();
 
-app.get("/registration", function (req, res){
-    db.collection('Students').add({
-       FullName: req.query.fullname,
-       Email: req.query.email,
-       Password: req.query.password
-    })
-    .then(()=>{
-        res.send("signup Successful, Please login")
-    })
-})
+app.post("/registration", async function (req, res){
+    const { fullname, email, password } = req.body;
+
+
+    const emailExists = await checkingEmail(email);
+
+    if (emailExists) {
+       
+        res.send('<p style="color: #87CEEB; font-size: 25px; text-align: center; background-color: black; padding: 400px">EMAIL ALREADY EXIST !! PLEASE LOGIN!!</p>');
+
+    } else {
+     
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        db.collection('Students').add({
+           FullName: fullname,
+           Email: email,
+           Password: hashedPassword 
+        })
+        .then(()=>{
+        
+            res.send('<p style="color: #87CEEB; font-size: 25px; text-align: center; background-color: black; padding: 400px">REGISTRATION SUCCESFULL!!</p>');
+        });
+    }
+});
+
+
+async function checkingEmail(email) {
+    const firebaseData= await db.collection('Students')
+        .where("Email", "==", email)
+        .get();
+    return !firebaseData.empty;
+}
 
 app.get("/login", function (req, res){
-    res.sendFile(__dirname + "/public/" + "login.html")
-})
+    res.sendFile(__dirname + "/public/" + "login.html");
+});
 
-app.get("/signin", function (req, res){
+app.post("/signin", function (req, res){
+    const { email, password } = req.body;
+
     db.collection('Students')
-    .where("Email", "==", req.query.email)
-    .where("Password", "==", req.query.password)
+    .where("Email", "==", email)
     .get()
-    .then((data)=>{
-        if(data.empty){
-            res.send("Login is not Successful")
+    .then(async (collectionData) => {
+        if(collectionData.empty){
+            res.send('<p style="color: #87CEEB; font-size: 25px; text-align: center; background-color: black; padding: 400px">USER NOT FOUND!!!</p><p>PLEASE LOGIN WITH CORRECT EMAIL OR CREATE YOUR ACCOUNT !! FIRST</p>');
         }
         else{
-            res.redirect("/pincode.html")
+            const user = collectionData.docs[0].data();
+            const hashedPassword = user.Password;
+
+  
+            const passwordMatch = await bcrypt.compare(password, hashedPassword);
+
+            if (passwordMatch) {
+                res.redirect("/pincode.html");
+            } else {
+                res.send("LOGIN NOT SUCCESFULL!!");
+            }
         }
-    })
-})
+    });
+});
+
 app.listen(3000, function () {  
-    console.log('Example app listening on port 3000!');
-})
+    console.log('Run your server on localhost 3000!');
+});
